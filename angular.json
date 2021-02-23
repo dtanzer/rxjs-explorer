@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "rxjs-explorer"
+    }
+  },
+  "defaultProject": "rxjs-explorer",
+  "cli": {
+    "analytics": false
+  }
 }
