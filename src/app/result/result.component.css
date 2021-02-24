@@ -1,0 +1,29 @@
+.results {
+	display: flex;
+	height: 50px;
+}
+
+.results div {
+	text-align: center;
+	width: 50px;
+	padding: 0 0.2em;
+}
+
+.time {
+	display: inline-block;
+	width: 20px;
+	padding: 0.2em;
+	margin-bottom: 0.5em;
+
+	border: 1px solid #333;
+	background: #ccc;
+	border-radius: 15px;
+}
+
+.results p {
+	border-bottom: 1px solid #333;
+}
+
+.results p:last-child {
+	border-bottom: none;
+}

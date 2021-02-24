@@ -1,37 +1,47 @@
 import { sequence } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { interval, OperatorFunction, Subject, } from 'rxjs';
-import { map, mergeMap, takeWhile, tap, } from 'rxjs/operators';
+import { map, mergeMap, take, takeWhile, tap, } from 'rxjs/operators';
+import { ResultCollector } from './result/result.component';
 
-interface TimedData<T> {
-  position: number;
-  data: T;
-}
-
-class TimedSubject<T> {
-  private positions: { [key in number]: TimedData<T> } = {};
+export class TimedSubject {
+  private positions: { [key in number]: number } = {};
   private allPositions: number[] = [];
-  private s = new Subject<TimedData<T>>();
-
-  constructor(s?: Subject<TimedData<T>>) {
+  private s = new Subject<number>();
+  
+  constructor(s?: Subject<number>) {
     if(s) {
       this.s = s;
     }
   }
 
   public get subject() {
-    return this.s.pipe(map(d => d.data));
+    return this.s;
   }
 
-  public setAt(position: number, data: T): void {
-    this.positions[position] = { position, data, };
-    this.allPositions.push(position);
+  public setAt(position: number): void {
+    this.positions[position] = position;
+    this.updateAllPositions();
+  }
+
+  public unsetAt(position: number): void {
+    this.positions[position] = undefined;
+    this.updateAllPositions();
+  }
+
+  private updateAllPositions() {
+    this.allPositions = Object.keys(this.positions).map(p => parseInt(p));
+    this.allPositions.sort((a, b) => a-b);
   }
 
   public doAt(position: number): void {
     if(this.positions[position]) {
       this.s.next(this.positions[position]);
     }
+  }
+
+  public contains(time: number): boolean {
+    return this.positions[time] != null;
   }
 }
 
@@ -42,36 +52,39 @@ class TimedSubject<T> {
 })
 export class AppComponent implements OnInit {
   title = 'rxjs-explorer';
+  subjects: TimedSubject[] = [];
+
+  resultCollector = new ResultCollector();
 
   ngOnInit(): void {
     console.log('initializing');
 
-    const s1 = new TimedSubject<number>();
-    const s2 = new TimedSubject<number>();
+    const s1 = new TimedSubject();
+    //const s2 = new TimedSubject();
 
+    this.subjects = [s1/*, s2*/];
+
+    //const result = s1.subject.pipe(
+    //  mergeMap(x => s2.subject.pipe(map(y => x+'/'+y))),
+    //);
     const result = s1.subject.pipe(
-      mergeMap(x => s2.subject.pipe(map(y => x+'/'+y))),
-    );
-    result.subscribe(x => console.log(x))
-
-    s1.setAt(1,1);
-    s1.setAt(5,5);
-    s1.setAt(8,8);
-    s1.setAt(14,14);
-    s1.setAt(17,17);
-
-    s2.setAt(3,3);
-    s2.setAt(5,5);
-    s2.setAt(16,16);
-
-    this.runAll(s1, s2);
+      take(5)
+    )
+    result.subscribe(i => this.resultCollector.collect(i))
   }
 
-  private runAll(...ts: TimedSubject<unknown>[]): void {
+  run() {
+    this.runAll(...this.subjects);
+  }
+
+  private runAll(...ts: TimedSubject[]): void {
     const runner = interval(200).pipe(
       takeWhile(i => i<=20),
-      tap(i => ts.forEach(t => t.doAt(i)))
+      tap(i => this.resultCollector.setTime(i)),
+      tap(i => ts.forEach(t => t.doAt(i))),
+      tap(_ => this.resultCollector.finish())
     );
     runner.subscribe();
   }
 }
+

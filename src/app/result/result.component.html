@@ -1,0 +1,6 @@
+<div class="results">
+	<div *ngFor="let result of resultCollector.results; let i = index">
+		<p><span class="time">{{i}}</span></p>
+		<p *ngFor="let item of result">{{item}}</p>
+	</div>
+</div>

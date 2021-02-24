@@ -1,0 +1,8 @@
+<div class="container">
+	<div *ngFor="let time of times">
+		<label class="switch" [class.active]="containsTime(time)">
+			<input type="checkbox" [checked]="containsTime(time)" (change)="toggleTime(time)" />
+			<span>{{time}}</span>
+		</label>
+	</div>
+</div>

@@ -1,0 +1,33 @@
+.container {
+	display: flex;
+	align-items: center;
+	height: 50px;
+}
+
+.container div {
+	text-align: center;
+	width: 50px;
+	padding: 0 0.2em;
+}
+
+.switch {
+	display: inline-block;
+	width: 20px;
+	padding: 0.2em;
+
+	border: 1px solid #339;
+	border-radius: 15px;
+}
+
+.switch input {
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+}
+
+.active {
+	background: #aaf;
+}
