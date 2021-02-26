@@ -1,5 +1,5 @@
 <main>
-  <app-subject-editor *ngFor="let subject of subjects" [timedSubject]="subject"></app-subject-editor>
+  <app-subject-editor *ngFor="let subject of test.subjects" [timedSubject]="subject"></app-subject-editor>
   <button (click)="run()">Run!</button>
   <app-result [resultCollector]="resultCollector"></app-result>
 </main>
