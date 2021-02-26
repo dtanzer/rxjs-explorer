@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ResultCollector {
   private time: number;
   private current: any[] = [];
-  results: any[][] = [];
+  results: any[][] = new Array(16);
 
   collect(data: any): void {
     this.current.push(data);
@@ -11,13 +11,13 @@ export class ResultCollector {
 
   setTime(time: number): void {
     if(time === 0) {
-      this.results = [];
+      this.results = new Array(16);
     }
     this.time = time;
   }
 
   finish(): void {
-    this.results.push(this.current);
+    this.results[this.time] = this.current;
     this.current = [];
   }
 }

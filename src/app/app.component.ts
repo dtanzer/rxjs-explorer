@@ -4,6 +4,8 @@ import { interval, OperatorFunction, Subject, } from 'rxjs';
 import { map, mergeMap, take, takeWhile, tap, } from 'rxjs/operators';
 import { createMapToFizzBuzzTest } from './observable-tests/mapToFizzBuzz';
 import { ObservableTest } from './observable-tests/ObservableTest';
+import { createSwitchMapToSecondTest } from './observable-tests/switchMapToSecond';
+import { createSwitchMapToThirdTest } from './observable-tests/switchMapToThird';
 import { createTakeTest } from './observable-tests/take';
 import { ResultCollector } from './result/result.component';
 import { RunnableTimedSubject, TimedSubject } from './TimedSubject';
@@ -22,6 +24,8 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 		const takeTest = createTakeTest();
 		const mapToFizzBuzzTest = createMapToFizzBuzzTest();
+		const switchMapToSecondTest = createSwitchMapToSecondTest();
+		const switchMapToThirdTest = createSwitchMapToThirdTest();
 
 		this.test = mapToFizzBuzzTest;
 	}
@@ -35,7 +39,7 @@ export class AppComponent implements OnInit {
 
 	private runAll(...ts: RunnableTimedSubject<unknown>[]): void {
 		const runner = interval(200).pipe(
-			takeWhile(i => i<=20),
+			takeWhile(i => i<=15),
 			tap(i => this.resultCollector.setTime(i)),
 			tap(i => ts.forEach(t => t.doAt(i))),
 			tap(_ => this.resultCollector.finish())

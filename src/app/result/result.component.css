@@ -7,6 +7,7 @@
 	text-align: center;
 	width: 50px;
 	padding: 0 0.2em;
+	flex-grow: 1;
 }
 
 .time {
@@ -16,8 +17,11 @@
 	margin-bottom: 0.5em;
 
 	border: 1px solid #333;
-	background: #ccc;
 	border-radius: 15px;
+}
+
+.active {
+	background: #ccc;
 }
 
 .results p {
@@ -26,4 +30,8 @@
 
 .results p:last-child {
 	border-bottom: none;
+}
+
+button {
+	opacity: 0;
 }

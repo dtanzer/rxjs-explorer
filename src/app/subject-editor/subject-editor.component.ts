@@ -7,7 +7,7 @@ import { TimedSubject } from '../TimedSubject';
 	styleUrls: ['./subject-editor.component.css']
 })
 export class SubjectEditorComponent implements OnInit {
-	times = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+	times = Array.from(Array(16).keys());
 
 	@Input()
 	timedSubject: TimedSubject<any>;
