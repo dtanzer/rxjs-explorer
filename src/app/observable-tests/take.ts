@@ -9,6 +9,9 @@ export function createTakeTest(): ObservableTest {
 	));
 
 	return {
+		headline: 'take 5 from TimedSubject',
+		description: `The result of this operation takes 5 values of the
+		original TimedSubject`,
 		subjects: [ s1 ],
 		result,
 	}

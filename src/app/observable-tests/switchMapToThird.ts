@@ -12,6 +12,9 @@ export function createSwitchMapToThirdTest(): ObservableTest {
 	));
 
 	return {
+		headline: 'switchMaps to a Second Subject, and then to a Third',
+		description: `Similar to switchMapToSecond. Use to test how it works
+		with three TimedSubjects.`,
 		subjects: [ first, second, third ],
 		result,
 	}

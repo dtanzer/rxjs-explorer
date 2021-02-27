@@ -4,7 +4,9 @@ import { interval, OperatorFunction, Subject, } from 'rxjs';
 import { map, mergeMap, take, takeWhile, tap, } from 'rxjs/operators';
 import { createMapToFizzBuzzTest } from './observable-tests/mapToFizzBuzz';
 import { ObservableTest } from './observable-tests/ObservableTest';
-import { createSwitchMapToNewTest } from './observable-tests/switchMapToNew';
+import { createConcatMapToSecondTest } from './observable-tests/concatMapToSecond';
+import { createMergeMapToSecondTest } from './observable-tests/mergeMapToSecond';
+import { createSwitchMapToSingleTest } from './observable-tests/switchMapToSingle';
 import { createSwitchMapToSecondTest } from './observable-tests/switchMapToSecond';
 import { createSwitchMapToThirdTest } from './observable-tests/switchMapToThird';
 import { createTakeTest } from './observable-tests/take';
@@ -25,11 +27,13 @@ export class AppComponent implements OnInit {
 	ngOnInit(): void {
 		const takeTest = createTakeTest();
 		const mapToFizzBuzzTest = createMapToFizzBuzzTest();
+		const concatMapToSecondTest = createConcatMapToSecondTest();
+		const mergeMapToSecondTest = createMergeMapToSecondTest();
 		const switchMapToSecondTest = createSwitchMapToSecondTest();
 		const switchMapToThirdTest = createSwitchMapToThirdTest();
-		const switchMapToNewTest = createSwitchMapToNewTest();
+		const switchMapToSingleTest = createSwitchMapToSingleTest();
 
-		this.test = switchMapToNewTest;
+		this.test = mergeMapToSecondTest;
 	}
 
 	run() {

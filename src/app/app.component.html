@@ -1,4 +1,7 @@
 <main>
+  <h1>{{test.headline}}</h1>
+  <p style="max-width: 50em;">{{test.description}}</p>
+
   <app-subject-editor *ngFor="let subject of test.subjects" [timedSubject]="subject"></app-subject-editor>
   <button (click)="run()">Run!</button>
   <app-result [resultCollector]="resultCollector"></app-result>

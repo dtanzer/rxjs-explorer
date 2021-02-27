@@ -17,6 +17,9 @@ export function createMapToFizzBuzzTest() {
 	));
 
 	return {
+		headline: 'map to a Function that Creates FizzBuzz',
+		description: `Every time the TimedSubject fires, it maps the time (number)
+		to the "fizzBuzz" value of that time.`,
 		subjects: [ s1 ],
 		result,
 	}
