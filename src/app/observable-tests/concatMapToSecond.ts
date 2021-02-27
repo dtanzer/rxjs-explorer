@@ -13,8 +13,8 @@ export function createConcatMapToSecondTest(): ObservableTest {
 	));
 
 	return {
-		headline: 'mergeMap to a Second TimedSubject',
-		description: `The first timedSubject mergeMaps to the second
+		headline: 'concatMap to a Second TimedSubject',
+		description: `The first timedSubject concatMaps to the second
 		TimedSubject (taking three values from the second). Use to test how switchMap works when both subjects
 		generate their values over time (i.e. none of the subjects generates
 		them immediately).`,

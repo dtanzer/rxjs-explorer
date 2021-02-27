@@ -1,4 +1,4 @@
-import { map, switchMap } from "rxjs/operators";
+import { map, take, switchMap } from "rxjs/operators";
 import { TimedSubject } from "../TimedSubject"
 import { ObservableTest } from "./ObservableTest"
 
@@ -6,7 +6,10 @@ export function createSwitchMapToSecondTest(): ObservableTest {
 	const first = new TimedSubject<number>(i => i);
 	const second = new TimedSubject<number>(i => i);
 	const result = (([s1, s2]) => s1.subject.pipe(
-		switchMap(x => s2.subject.pipe(map(y => x+' / '+y)))
+		switchMap(x => s2.subject.pipe(
+			take(3),
+			map(y => x+' / '+y)
+		))
 	));
 
 	return {
